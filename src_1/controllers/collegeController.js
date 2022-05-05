@@ -5,7 +5,7 @@
 
 const collegeModel = require("../models/collegeModel");
 const internModel = require("../models/internModel");
-//======================================================================
+
 const isValid = function (value) {
     if (typeof value === 'undefined' || value === null) return false
     if (typeof value === 'string' && value.trim().length === 0) return false
