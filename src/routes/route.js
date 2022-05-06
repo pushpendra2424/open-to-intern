@@ -6,11 +6,15 @@ const router = express.Router();
 const collegeController = require('../controllers/collegeController');
 const internController = require('../controllers/internController')
 
-// College routes
+//=========================college routes==========================
+
 router.post('/functionup/colleges', collegeController.createCollege);
+
 router.get('/functionup/collegeDetails', collegeController.collegeDetails);
 
-// Intern routes
+
+//=======================Intern routes==========================
+
 router.post('/functionup/interns', internController.createIntern);
 
 

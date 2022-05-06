@@ -1,27 +1,29 @@
 const { default: mongoose } = require("mongoose")
 
+//==============College Schema===============
+
 const collegeSchema = new mongoose.Schema({
     name: {
         type: String,
         unique: true,
-        required: [true,'Name is required']
+        required: [true, 'Name is required']
     },
+    
     fullName: {
         type: String,
-        required: [true,'Fullname is required']
+        required: [true, 'Full name is required']
     },
+
     logoLink: {
-        required: [true,'logo link required',],
-        //URL: 'https://functionup.s3.ap-south-1.amazonaws.com/colleges/iith.png'
-        type:String
+        type: String,
+        required: "URL can't be empty",
     },
+
     isDeleted: {
         type: Boolean,
         default: false
     }
+})
 
-}, 
-//{ timestamps: true }
-)
 
 module.exports = mongoose.model('College', collegeSchema, 'colleges')
