@@ -75,7 +75,7 @@ const createCollege = async function (req, res) {
 
 const collegeDetails = async function (req, res) {
     try {
-        const collegeName = req.query.name
+        const collegeName = req.query.collegeName
         if (!collegeName) return res.status(400).send({ status: false, message: 'College name is required to access data' })
 
         //==================================================DB check for college=======================================================
@@ -90,7 +90,7 @@ const collegeDetails = async function (req, res) {
 
         //====================================Show perticular collge interns Detailes=================================================         
 
-        res.status(200).send({ data: { name: newCollege.name, fullName: newCollege.fullName, logoLink: newCollege.logoLink, interns: interns } })
+        res.status(200).send({status: true, data: { name: newCollege.name, fullName: newCollege.fullName, logoLink: newCollege.logoLink, interests: interns } })
 
     } catch (error) {
         res.status(500).send({ status: false, message: error.message });
