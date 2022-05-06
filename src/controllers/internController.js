@@ -21,7 +21,7 @@ const createIntern = async function (req, res) {
     try {
         const requestBody = req.body;
         if (!isValidRequestBody(requestBody)) {
-            res.status(400).send({ status: false, message: 'Invalid request parameters. Please provide author details' })
+            res.status(400).send({ status: false, message: 'Invalid request parameters. Please provide internship details' })
             return
         }
 
