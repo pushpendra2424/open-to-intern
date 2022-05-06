@@ -38,8 +38,8 @@ const createCollege = async function (req, res) {
 
         //==============================================LogoLink validation=================================================
 
-        const isValidUrl = function (v) { return /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/.test(v)}
-        //const isValidUrl = function (v) { return /^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?$/.test(v) }
+        //const isValidUrl = function (v) { return /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/.test(v)}
+        const isValidUrl = function (v) { return /^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?$/.test(v) }
 
         if (!isValidUrl(logoLink)) return res.status(400).send({ status: false, message: 'logolink is invalid' })
 
