@@ -38,10 +38,10 @@ const createCollege = async function (req, res) {
 
         //==============================================LogoLink validation=================================================
 
-        //const isValidUrl = function (v) { return /^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?$/gm.test(v) }
-        const isValidUrl = function (v) { return /^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?$/gm.test(v) }
+        // const isValidUrl = function (v) { return /^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?$/gm.test(v) }
+        // //const isValidUrl = function (v) { return /^(http(s)?:\/\/)?(www.)?([a-zA-Z0-9])+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,5}(:[0-9]{1,5})?(\/[^\s]*)?$/gm.test(v) }
 
-        if (!isValidUrl(logoLink)) return res.status(400).send({ status: false, message: 'logolink is invalid' })
+        // if (!isValidUrl(logoLink)) return res.status(400).send({ status: false, message: 'logolink is invalid' })
 
         //===============================================DB check for college name==========================================================================       
 
@@ -50,21 +50,10 @@ const createCollege = async function (req, res) {
             return res.status(400).send({ status: false, message: `${name} college name is already registered` })
         }
 
-        //=================================================DB check for url ===============================================     
-
-        const urlAlreadyUsed = await collegeModel.findOne({ logoLink });
-        if (urlAlreadyUsed) {
-            return res.status(400).send({ status: false, message: `${logoLink} Logo URL is already registered` })
-        }
-
-        //=======================================================================================================================               
-
-        const allData = { name, fullName, logoLink }// Object destructing
-
         //===================================================Create College in DB==================================================
 
-        const newData = await collegeModel.create(allData);
-        return res.status(201).send({ status: true, message: `Created successfully`, data: newData });
+        const newData = await collegeModel.create(requestBody);
+        return res.status(201).send({ status: true, data: newData });
 
     } catch (error) {
         res.status(500).send({ status: false, message: error.message });

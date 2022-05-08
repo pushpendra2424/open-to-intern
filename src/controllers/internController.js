@@ -19,6 +19,7 @@ const isValidRequestBody = function (requestBody) {
 
 const createIntern = async function (req, res) {
     try {
+        //res.setHeader('Access.Control.Allow.Origin', '*')
         const requestBody = req.body;
         if (!isValidRequestBody(requestBody)) {
             return res.status(400).send({ status: false, message: 'Invalid request parameters. Please provide internship details' })
@@ -53,17 +54,11 @@ const createIntern = async function (req, res) {
 
         if (!isValid(collegeId)) return res.status(400).send({ status: false, message: 'College ID is required' })
 
-        //=============================================DB check for emailId=====================================================      
+        //==========================================DB check for emailId & Mobile number=====================================================      
 
-        const isEmailAlreadyUsed = await internModel.findOne({ email: email }); // {email: email} object shorthand property
+        const isEmailAlreadyUsed = await internModel.findOne({ email: email,mobile:mobile  }); // {email: email} object shorthand property
         if (isEmailAlreadyUsed) {
-            return res.status(400).send({ status: false, message: `${email} Email address is already registered` })
-        }
-        //===============================================DB check for mobileNumber==========================================================================       
-
-        const isMobileAlreadyUsed = await internModel.findOne({ mobile });
-        if (isMobileAlreadyUsed) {
-            return res.status(400).send({ status: false, message: `${mobile} Mobile number  is already registered` })
+            return res.status(400).send({ status: false, message: `Email or Mobile number is already registered` })
         }
 
         //=================================================DB check for collegeId ===============================================     
@@ -76,7 +71,7 @@ const createIntern = async function (req, res) {
         //=================================================Create Intern in DB===============================================     
 
         const newData = await internModel.create(allData);
-        return res.status(201).send({ status: true, message: `Created successfully`, data: newData });
+        return res.status(201).send({ status: true, data: newData });
 
     } catch (error) {
         res.status(500).send({ status: false, message: error.message });

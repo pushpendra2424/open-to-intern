@@ -16,9 +16,9 @@ const collegeSchema = new mongoose.Schema({
 
     logoLink: {
         type: String,
-        required: "URL can't be empty",
+        required: true, 
+        trim: true,
     },
-
     isDeleted: {
         type: Boolean,
         default: false
@@ -26,4 +26,4 @@ const collegeSchema = new mongoose.Schema({
 })
 
 
-module.exports = mongoose.model('College', collegeSchema, 'colleges')
+module.exports = mongoose.model('College', collegeSchema)
