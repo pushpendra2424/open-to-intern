@@ -26,7 +26,7 @@ const createIntern = async function (req, res) {
         }
 
         // Extract body
-        const { name, email, mobile, collegeId } = requestBody; // Object destructing
+        const { name, email, mobile, collegeName } = requestBody; // Object destructing
 
         // Validation starts
 
@@ -52,7 +52,7 @@ const createIntern = async function (req, res) {
 
         //=========================================================================================================================
 
-        if (!isValid(collegeId)) return res.status(400).send({ status: false, message: 'College ID is required' })
+        if (!isValid(collegeName)) return res.status(400).send({ status: false, message: 'College Name is required' })
 
         //==========================================DB check for emailId & Mobile number=====================================================      
 
@@ -61,11 +61,17 @@ const createIntern = async function (req, res) {
             return res.status(400).send({ status: false, message: `Email or Mobile number is already registered` })
         }
 
-        //=================================================DB check for collegeId ===============================================     
+        //=================================================DB check for collegeName =============================================== 
+        
+        const college = await collegeModel.findOne({ name: collegeName });
 
-        const iscollegeId = await collegeModel.findById(collegeId)
-        if (!iscollegeId) return res.status(400).send({ status: false, message: 'College ID does not Exist' })
+        const collegeId = college._id
 
+        if (!collegeId) {
+            res.status(400).send({ status: false, message: `collegeName doesn't exist` });
+            return
+        }
+       
         const allData = { name, email, mobile, collegeId }
 
         //=================================================Create Intern in DB===============================================     
